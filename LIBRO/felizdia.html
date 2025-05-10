@@ -1,0 +1,256 @@
+
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <title>FELIZ DÍA DE LA MADRE</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      background-color: #fce4ec;
+      font-family: 'Georgia', serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      margin: 0;
+      padding: 20px;
+    }
+
+
+
+    h1 {
+      overflow: hidden;
+      /* Oculta el texto que aún no ha aparecido */
+      border-right: 2px solid #c2185b;
+      white-space: nowrap;
+      margin: 50px auto;
+      letter-spacing: 2px;
+      animation: escribir 4s steps(40, end), cursor 0.40s step-end;
+      text-align: center;
+      font-size: 2.5rem;
+      color: #c2185b;
+    }
+    /* Efecto de escritura */
+    @keyframes escribir {
+      from {
+        width: 0;
+        opacity: 1;
+      }
+
+      to {
+        width: 100%;
+        opacity: 1;
+      }
+    }
+
+    /* Efecto del cursor parpadeando */
+    @keyframes cursor {
+
+      from,
+      to {
+        border-color: transparent;
+      }
+
+      50% {
+        border-color: #c2185b;
+      }
+    }
+
+
+    .contenedor-con-imagenes {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: 20px;
+    }
+
+    .img-arriba,
+    .img-abajo {
+      width: 150px;
+      height: auto;
+      margin: 10px;
+    }
+
+    .img-lado {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 80px;
+      height: auto;
+      z-index: 2;
+    }
+
+    .img-lado.izquierda {
+      left: -90px;
+    }
+
+    .img-lado.derecha {
+      right: -90px;
+    }
+
+    .libro {
+      perspective: 2000px;
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+      justify-content: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    .pagina {
+      width: 300px;
+      height: 400px;
+      position: relative;
+      transform-style: preserve-3d;
+      transition: transform 1s;
+      cursor: pointer;
+    }
+
+    .pagina.volteada {
+      transform: rotateY(180deg);
+    }
+
+    .pagina .frente,
+    .pagina .atras {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      backface-visibility: hidden;
+      border: 2px solid #b03a2e;
+      background-color: #fffafc;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 30px;
+      box-sizing: border-box;
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .pagina .atras {
+      transform: rotateY(180deg);
+      background-color: #fff0f5;
+    }
+
+    p {
+      font-size: 18px;
+      text-align: center;
+      color: #880e4f;
+      line-height: 1.6;
+    }
+
+    /* Responsivo para celulares */
+    @media (max-width: 768px) {
+      .libro {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .pagina {
+        width: 90vw;
+        height: 60vw;
+      }
+
+      p {
+        font-size: 16px;
+      }
+
+      .img-arriba,
+      .img-abajo {
+        width: 100px;
+      }
+
+      .img-lado {
+        width: 50px;
+      }
+
+      .img-lado.izquierda {
+        left: -60px;
+      }
+
+      .img-lado.derecha {
+        right: -60px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <h1>💖 Feliz Día de la Madre 💖</h1>
+
+  <div class="libro">
+    <!-- Página 1 -->
+    <div class="pagina" onclick="pasarPagina(this)">
+      <div class="frente">
+        <p class="maquina"
+          data-text=" Tu cariño es el regalo más grande que he recibido. ¡Feliz Día de la Madre a la mujer más maravillosa! 💖">
+        </p>
+      </div>
+      <div class="atras">
+        <p class="maquina" data-text=" En este día especial y siempre, quiero que sepas cuánto te amo y admiro."></p>
+      </div>
+    </div>
+
+    <!-- Página 2 -->
+    <div class="pagina" onclick="pasarPagina(this)">
+      <div class="frente">
+        <p class="maquina"
+          data-text=" Gracias por enseñarme el significado del amor incondicional. ¡Eres mi heroína, mamá! 💖"></p>
+      </div>
+      <div class="atras">
+        <p class="maquina" data-text=" Tu corazón es un tesoro inagotable de amor y bondad."></p>
+      </div>
+    </div>
+
+    <!-- Página 3 -->
+    <div class="pagina" onclick="pasarPagina(this)">
+      <div class="frente">
+        <p class="maquina"
+          data-text=" Mamá, eres el ejemplo perfecto de amor, paciencia y fortaleza. ¡Te adoro con todo mi corazón! 💖">
+        </p>
+      </div>
+      <div class="atras">
+        <p class="maquina" data-text=" Cada día agradezco tenerte como madre."></p>
+      </div>
+    </div>
+  </div>
+  </div>
+
+  <script>
+    function escribirTexto(p) {
+      const texto = p.getAttribute('data-text');
+      p.textContent = '';
+      let i = 0;
+
+      function escribir() {
+        if (i < texto.length) {
+          p.textContent += texto.charAt(i);
+          i++;
+          setTimeout(escribir, 30);
+        }
+      }
+
+      escribir();
+    }
+
+    document.querySelectorAll('.maquina').forEach(p => {
+      escribirTexto(p);
+    });
+
+    function pasarPagina(pagina) {
+      pagina.classList.toggle('volteada');
+
+      const parrafos = pagina.querySelectorAll('.maquina');
+      parrafos.forEach(p => {
+        escribirTexto(p);
+      });
+    }
+  </script>
+</body>
+
+</html>
